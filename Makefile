@@ -23,3 +23,10 @@ build:
 .PHONY: deploy
 deploy: network remove-container build
 	docker run --name $(container) --net $(network) -p $(ex_port):5601 -it -d $(image)
+
+.PHONY: git-push
+git-push:
+	@for remote in $$(git remote); do \
+		echo "Pushing to $$remote"; \
+        git push $$remote; \
+	done
